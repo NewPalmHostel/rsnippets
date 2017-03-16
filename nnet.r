@@ -22,3 +22,15 @@ predict( nn, newdata=x.test, type="raw" )
 
     return( list( in2hid=in2hid, hid2out=hid2out ) )
 }
+
+# inverse of .nnet2w
+# > m <- .nnet2w( nn )
+# > w <- .w2nnet( m$in2hid, m$hid2out )
+# then, nn$wts == w.
+.w2nnet <- function( mat1, mat2 ){
+    dim.in  <- ncol(mat1) - 1
+    num.hid <- ncol(mat2) - 1
+    dim.out <- nrow(mat2)
+
+    return( c(as.numeric(t(mat1)),as.numeric(t(mat2))) )
+}
